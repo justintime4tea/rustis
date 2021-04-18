@@ -2,14 +2,14 @@ use eframe::{egui, epi};
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[cfg_attr(feature = "persistence", derive(serde::Deserialize, serde::Serialize))]
-pub struct TemplateApp {
+pub struct RustisApp {
     // Example stuff:
     label: String,
     value: f32,
     painting: Painting,
 }
 
-impl Default for TemplateApp {
+impl Default for RustisApp {
     fn default() -> Self {
         Self {
             // Example stuff:
@@ -20,9 +20,9 @@ impl Default for TemplateApp {
     }
 }
 
-impl epi::App for TemplateApp {
+impl epi::App for RustisApp {
     fn name(&self) -> &str {
-        "egui template"
+        "Rustis"
     }
 
     /// Called by the framework to load old app state (if any).
@@ -40,7 +40,7 @@ impl epi::App for TemplateApp {
     /// Called each time the UI needs repainting, which may be many times per second.
     /// Put your widgets into a `SidePanel`, `TopPanel`, `CentralPanel`, `Window` or `Area`.
     fn update(&mut self, ctx: &egui::CtxRef, frame: &mut epi::Frame<'_>) {
-        let TemplateApp {
+        let RustisApp {
             label,
             value,
             painting,
@@ -66,7 +66,8 @@ impl epi::App for TemplateApp {
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::Center), |ui| {
                 ui.add(
-                    egui::Hyperlink::new("https://github.com/emilk/egui/").text("powered by egui"),
+                    egui::Hyperlink::new("https://github.com/emilk/egui/")
+                        .text("powered by egui with <3"),
                 );
             });
         });
@@ -83,10 +84,10 @@ impl epi::App for TemplateApp {
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading("egui template");
-            ui.hyperlink("https://github.com/emilk/egui_template");
+            ui.heading("Rustis");
+            ui.hyperlink("https://github.com/justintime4tea/rustis");
             ui.add(egui::github_link_file_line!(
-                "https://github.com/emilk/egui_template/blob/master/",
+                "https://github.com/justintime4tea/rustis/blob/master/",
                 "Direct link to source code."
             ));
             egui::warn_if_debug_build(ui);
@@ -104,14 +105,12 @@ impl epi::App for TemplateApp {
             });
         });
 
-        if false {
-            egui::Window::new("Window").show(ctx, |ui| {
-                ui.label("Windows can be moved by dragging them.");
-                ui.label("They are automatically sized based on contents.");
-                ui.label("You can turn on resizing and scrolling if you like.");
-                ui.label("You would normally chose either panels OR windows.");
-            });
-        }
+        egui::Window::new("Window").show(ctx, |ui| {
+            ui.label("Windows can be moved by dragging them.");
+            ui.label("They are automatically sized based on contents.");
+            ui.label("You can turn on resizing and scrolling if you like.");
+            ui.label("You would normally chose either panels OR windows.");
+        });
     }
 }
 
